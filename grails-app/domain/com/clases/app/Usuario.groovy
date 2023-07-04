@@ -21,4 +21,20 @@ class Usuario {
     static mapping = {
         id generator: 'sequence', params: [sequence_name: 'usuario_seq']
     }
+
+
+    /**
+     * Datos generales
+     * @return Mapa con datos generales
+     */
+    Map obtieneDatos() {
+        return  [
+                id              : id,
+                nombre          : nombre,
+                correo          : correoElectronico,
+                telefono        : numeroTelefono,
+                direccion       : direccion,
+                puntos          : puntosAcumulados
+        ]
+    }
 }

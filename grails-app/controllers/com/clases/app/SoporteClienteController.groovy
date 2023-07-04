@@ -10,11 +10,6 @@ class SoporteClienteController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond soporteClienteService.list(params), model:[soporteClienteCount: soporteClienteService.count()]
-    }
-
     def index() {
         def soportes = SoporteCliente.list()
         render(view: "index", model: [soportes: soportes])

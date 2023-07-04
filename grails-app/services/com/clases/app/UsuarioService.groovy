@@ -13,7 +13,13 @@ class UsuarioService {
         }
     }
 
-    def getUsuario(id) {
+    /**
+     * Busca y devuelve una instancia del Banco mediante el id
+     * @param id Identificador del Banco
+     * @return Instancia del Banco encontrada
+     */
+    Usuario get(long id) {
+        log.info 'Plugin : AppPuntos, Servicio : Usuario, Metodo : get'
         return Usuario.get(id)
     }
 

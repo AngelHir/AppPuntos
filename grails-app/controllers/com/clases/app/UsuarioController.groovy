@@ -14,19 +14,40 @@ class UsuarioController {
         render(view: "index", model: [usuarios: usuarios])
     }
 
-    def create() {
+    /**
+     * Controlador para la creacion de un nuevo Banco
+     * @return Mapa con mensaje de exito de creacion
+     * */
+    def save() {
+        log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : save'
         try {
-            def usuarioInstance = usuarioService.createUsuario(params)
-            redirect(action: "show", id: usuarioInstance.id)
+            Usuario usuarioInstance = usuarioService.create(JSON.parse(request))
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.created.message', parametros: [
+                                Message.getMensaje('usuario.label', 'Usuario'),
+                                usuarioInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
         } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
+            render(status: 404, contentType: "application/json") { mensajeError(e.getMessage()) }
         }
     }
 
-    def show() {
-        def usuarioInstance = usuarioService.getUsuario(params.id)
-        render(view: "show", model: [usuarioInstance: usuarioInstance])
+    def show(long id) {
+        log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : show'
+        Usuario usuarioInstance = usuarioService.get(id)
+        render(contentType: "application/json") {
+            id(usuarioInstance.id)
+            nombre(usuarioInstance.nombre)
+            correoElectronico(usuarioInstance.correoElectronico)
+            numeroTelefono(usuarioInstance.numeroTelefono)
+            direccion(usuarioInstance.direccion)
+            puntosAcumulados(usuarioInstance.puntosAcumulados)
+        }
     }
 
     def edit() {
