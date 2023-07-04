@@ -1,5 +1,6 @@
 package com.clases.app
 
+import com.software.componente.app.ObjectException
 import grails.converters.JSON
 
 class UsuarioController {
