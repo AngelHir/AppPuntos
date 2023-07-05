@@ -2,6 +2,7 @@ package com.clases.app
 
 class Promocion {
 
+    boolean activo=true
     String nombre
     String descripcion
     String descuento

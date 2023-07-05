@@ -2,6 +2,7 @@ package com.clases.app
 
 class Usuario {
 
+    boolean activo=true
     String nombre
     String correoElectronico
     String contrasenia
