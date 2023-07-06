@@ -12,10 +12,6 @@ class UsuarioController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index() {
-        def usuarios = Usuario.list()
-        render(view: "index", model: [usuarios: usuarios])
-    }
 
     /**
      * Controlador para la creacion de un nuevo Banco
@@ -24,7 +20,7 @@ class UsuarioController {
     def save() {
         log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : save'
         try {
-            Usuario usuarioInstance = usuarioService.create(JSON.parse(request))
+            Usuario usuarioInstance = usuarioService.create(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.created.message', parametros: [
@@ -53,23 +49,5 @@ class UsuarioController {
         }
     }
 
-    def edit() {
-        def usuarioInstance = usuarioService.getUsuario(params.id)
-        render(view: "edit", model: [usuarioInstance: usuarioInstance])
-    }
 
-    def update() {
-        try {
-            def usuarioInstance = usuarioService.updateUsuario(params.id, params)
-            redirect(action: "show", id: usuarioInstance.id)
-        } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
-        }
-    }
-
-    def delete() {
-        usuarioService.deleteUsuario(params.id)
-        redirect(action: "index")
-    }
 }
