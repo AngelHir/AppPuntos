@@ -14,7 +14,7 @@ class UsuarioController {
 
 
     /**
-     * Controlador para la creacion de un nuevo Banco
+     * Controlador para la creacion de un nuevo Usuario
      * @return Mapa con mensaje de exito de creacion
      * */
     def save() {
