@@ -1,5 +1,7 @@
 package com.clases.app
 
+import com.software.componente.app.Message
+import com.software.componente.app.ObjectException
 import grails.converters.JSON
 
 
@@ -10,43 +12,67 @@ class ProductoController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index() {
-        def productos = Producto.list()
-        render(view: "index", model: [productos: productos])
-    }
 
-    def create() {
-        try {
-            def productoInstance = productoService.createProducto(params)
-            redirect(action: "show", id: productoInstance.id)
-        } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
+
+    def show(long id) {
+        log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : show'
+        Producto productoInstance =productoService.get(id)
+        render(contentType: "application/json") {
+            id(productoInstance.id)
+            nombre(productoInstance.nombre)
+            descripcion(productoInstance.descripcion)
+            stock(productoInstance.stock)
+            puntosRequeridos(productoInstance.puntosRequeridos)
         }
     }
 
-    def show() {
-        def productoInstance = productoService.getProducto(params.id)
-        render(view: "show", model: [productoInstance: productoInstance])
+    /**
+     * Controlador para la creacion de un nuevo Producto
+     * @return Mapa con mensaje de exito de creacion
+     * */
+    def save() {
+        log.info 'Plugin : AppPuntos, Controlador : Producto, Accion : save'
+        try {
+            Producto productoInstance = productoService.create(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.created.message', parametros: [
+                                Message.getMensaje('producto.label', 'Producto'),
+                                productoInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") { mensajeError(e.getMessage()) }
+        }
     }
 
-    def edit() {
-        def productoInstance = productoService.getProducto(params.id)
-        render(view: "edit", model: [productoInstance: productoInstance])
-    }
-
+    /**
+     * Controlador para la actualizacion de Productos existentes
+     * @return Mapa con mensaje de exito de actualizacion
+     * */
     def update() {
+        log.info 'Plugin : appPuntos, Controlador : Producto, Accion : update'
         try {
-            def productoInstance = productoService.updateProducto(params.id, params)
-            redirect(action: "show", id: productoInstance.id)
+            Producto productoInstance = productoService.update(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.updated.message', parametros: [
+                                Message.getMensaje('producto.label', 'Producto'),
+                                productoInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
         } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
+            render(status: 404, contentType: "application/json") {
+                mensajeError(e.getMessage())
+            }
         }
     }
 
-    def delete() {
-        productoService.deleteProducto(params.id)
-        redirect(action: "index")
-    }
+
 }

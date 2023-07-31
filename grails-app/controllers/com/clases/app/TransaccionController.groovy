@@ -1,5 +1,7 @@
 package com.clases.app
 
+import com.software.componente.app.Message
+import com.software.componente.app.ObjectException
 import grails.converters.JSON
 
 class TransaccionController {
@@ -9,43 +11,68 @@ class TransaccionController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index() {
-        def transacciones = Transaccion.list()
-        render(view: "index", model: [transacciones: transacciones])
-    }
 
-    def create() {
-        try {
-            def transaccionInstance = transaccionService.createTransaccion(params)
-            redirect(action: "show", id: transaccionInstance.id)
-        } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
+
+    def show(long id) {
+        log.info 'Plugin : appPuntos, Controlador :Transaccion, Accion : show'
+        Transaccion transaccionInstance = transaccionService.get(id)
+        render(contentType: "application/json") {
+            id(transaccionInstance.id)
+            usuario(transaccionInstance.usuario)
+            fecha(transaccionInstance.fecha)
+            tipo(transaccionInstance.tipo)
+            descripcion(transaccionInstance.descripcion)
+            monto(transaccionInstance.monto)
         }
     }
 
-    def show() {
-        def transaccionInstance = transaccionService.getTransaccion(params.id)
-        render(view: "show", model: [transaccionInstance: transaccionInstance])
+    /**
+     * Controlador para la creacion de una nueva Transaccion
+     * @return Mapa con mensaje de exito de creacion
+     * */
+    def save() {
+        log.info 'Plugin : AppPuntos, Controlador : Transaccion , Accion : save'
+        try {
+            Transaccion transaccionInstance = transaccionService.create(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.created.message', parametros: [
+                                Message.getMensaje('transaccion.label', 'Transaccion'),
+                                transaccionInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") { mensajeError(e.getMessage()) }
+        }
     }
 
-    def edit() {
-        def transaccionInstance = transaccionService.getTransaccion(params.id)
-        render(view: "edit", model: [transaccionInstance: transaccionInstance])
-    }
-
+    /**
+     * Controlador para la actualizacion de Transacciones existentes
+     * @return Mapa con mensaje de exito de actualizacion
+     * */
     def update() {
+        log.info 'Plugin : appPuntos, Controlador : Transaccion, Accion : update'
         try {
-            def transaccionInstance = transaccionService.updateTransaccion(params.id, params)
-            redirect(action: "show", id: transaccionInstance.id)
+            Transaccion transaccionInstance = transaccionService.update(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.updated.message', parametros: [
+                                Message.getMensaje('transaccion.label', 'Transaccion'),
+                                transaccionInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
         } catch (Exception e) {
-            Map error = [error: e.getMessage()]
-            render error as JSON
+            render(status: 404, contentType: "application/json") {
+                mensajeError(e.getMessage())
+            }
         }
     }
 
-    def delete() {
-        transaccionService.deleteTransaccion(params.id)
-        redirect(action: "index")
-    }
+
 }

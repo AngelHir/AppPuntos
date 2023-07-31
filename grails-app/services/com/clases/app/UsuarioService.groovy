@@ -2,7 +2,6 @@ package com.clases.app
 
 import com.software.componente.app.ObjectException
 import com.software.componente.app.Message
-
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -56,9 +55,10 @@ class UsuarioService {
         try {
             Usuario usuarioInstance = new Usuario()
             usuarioInstance.nombre = usuarioMap.nombre
-            usuarioInstance.direccion = usuarioMap.razonSocial
-            usuarioInstance.numeroTelefono = usuarioMap.razonSocial
-            usuarioInstance.correoElectronico = usuarioMap.razonSocial
+            usuarioInstance.direccion = usuarioMap.direccion
+            usuarioInstance.contrasenia=usuarioMap.contrasenia
+            usuarioInstance.numeroTelefono = usuarioMap.numeroTelefono
+            usuarioInstance.correoElectronico = usuarioMap.correoElectronico
 
             if (usuarioMap.inactivo) {
                 usuarioInstance.activo = false
@@ -70,6 +70,38 @@ class UsuarioService {
         }
         catch (Exception e) {
             log.error 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create, Error'
+            throw e
+        }
+    }
+
+
+    /**
+     * Actualizacion de un Banco existente
+     * @param usuarioMap Datos necesarios para la actualizacion del Usuario
+     * @return Instancia del Usuario actualizado
+     * @throws RuntimeException Al no encontrar el Usuario para actualizar
+     **/
+    Usuario update(Map usuarioMap) throws Exception {
+        log.info 'Plugin : appPuntos, Servicio : usuario, Metodo : update Iniciando'
+        try {
+            Usuario usuarioInstance = this.get(usuarioMap.id as long)
+            if (!usuarioInstance) {
+                log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error No Encontrado'
+                throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
+                        Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
+                ]))
+            }
+            usuarioInstance.nombre = usuarioMap.nombre
+            usuarioInstance.direccion = usuarioMap.direccion
+            usuarioInstance.contrasenia=usuarioMap.contrasenia
+            usuarioInstance.numeroTelefono = usuarioMap.numeroTelefono
+            usuarioInstance.correoElectronico = usuarioMap.correoElectronico
+
+            this.save(usuarioInstance)
+            log.info 'Plugin : appPuntos, Servicio : Usuario, Metodo : update Completado'
+            return usuarioInstance
+        } catch (Exception e) {
+            log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error'
             throw e
         }
     }

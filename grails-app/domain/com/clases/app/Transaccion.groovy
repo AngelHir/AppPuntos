@@ -3,6 +3,7 @@ package com.clases.app
 class Transaccion {
 
     Date fecha
+    Boolean activo=true
     String tipo
     String descripcion
     BigDecimal monto

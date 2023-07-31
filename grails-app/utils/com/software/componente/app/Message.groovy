@@ -86,4 +86,3 @@ class Message {
         return msg
     }
 }
-
