@@ -5,16 +5,22 @@ class Transaccion {
     Date fecha
     Boolean activo=true
     String tipo
-    String descripcion
+    Producto productos
     BigDecimal monto
+    String local
+    int descuento
     Usuario usuario
+    int puntosGenerados
 
     static constraints = {
         fecha nullable: false
         tipo nullable: false
-        descripcion nullable: false
         monto nullable: false
         usuario nullable: false
+        puntosGenerados nullable: true
+        descuento nullable : true
+        local nullable: false
+        productos nullable: false
     }
 
     static mapping = {

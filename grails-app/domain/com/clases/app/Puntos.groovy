@@ -2,13 +2,11 @@ package com.clases.app
 
 class Puntos {
 
-    int cantidad
-    Date fechaCaducidad
+    int cantidad=0
     Usuario usuario
 
     static constraints = {
         cantidad nullable: false
-        fechaCaducidad nullable: false
         usuario nullable: false
     }
 

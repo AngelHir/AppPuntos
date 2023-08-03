@@ -4,19 +4,18 @@ class Usuario {
 
     boolean activo=true
     String nombre
+    String apellido
     String correoElectronico
-    String contrasenia
     String numeroTelefono
-    String direccion
-    int puntosAcumulados=0
+    /**String direccion **/
+    String numTarjeta
+    String tipoMembresia
 
     static constraints = {
         nombre nullable: false
         correoElectronico nullable: false, email: true
-        contrasenia nullable: false
         numeroTelefono nullable: true
-        direccion nullable: true
-        puntosAcumulados nullable: false
+        /**direccion nullable: true **/
     }
 
     static mapping = {
