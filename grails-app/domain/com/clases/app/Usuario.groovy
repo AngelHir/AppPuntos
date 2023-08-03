@@ -2,6 +2,7 @@ package com.clases.app
 
 class Usuario {
 
+    static hasMany = [transacciones: Transaccion]
     boolean activo=true
     String nombre
     String apellido
@@ -10,6 +11,7 @@ class Usuario {
     /**String direccion **/
     String numTarjeta
     String tipoMembresia
+    int puntos=0
 
     static constraints = {
         nombre nullable: false

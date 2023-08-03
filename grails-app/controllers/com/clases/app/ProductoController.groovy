@@ -21,8 +21,9 @@ class ProductoController {
             id(productoInstance.id)
             nombre(productoInstance.nombre)
             descripcion(productoInstance.descripcion)
+            codigoBarras(productoInstance.codigoBarra)
             stock(productoInstance.stock)
-            puntosRequeridos(productoInstance.puntosRequeridos)
+            precio(productoInstance.precio)
         }
     }
 

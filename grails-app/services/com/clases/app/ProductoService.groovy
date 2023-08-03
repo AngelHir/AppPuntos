@@ -56,7 +56,8 @@ class ProductoService {
             Producto productoInstance = new Producto()
             productoInstance.nombre = productoMap.nombre
             productoInstance.descripcion = productoMap.descripcion
-            productoInstance.puntosRequeridos= productoMap.puntosRequeridos as Integer
+            productoInstance.codigoBarra = productoMap.codigoBarra
+            productoInstance.precio= productoMap.puntosRequeridos as int
             productoInstance.stock = productoMap.stock as Integer
 
             if (productoMap.inactivo) {
@@ -92,7 +93,8 @@ class ProductoService {
             }
             productoInstance.nombre = productoMap.nombre
             productoInstance.descripcion = productoMap.descripcion
-            productoInstance.puntosRequeridos= productoMap.puntosRequeridos as Integer
+            productoInstance.codigoBarra = productoMap.codigoBarra
+            productoInstance.precio= productoMap.puntosRequeridos as int
             productoInstance.stock = productoMap.stock as Integer
 
             this.save(productoInstance)

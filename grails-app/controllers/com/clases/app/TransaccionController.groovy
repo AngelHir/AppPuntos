@@ -21,7 +21,6 @@ class TransaccionController {
             usuario(transaccionInstance.usuario)
             fecha(transaccionInstance.fecha)
             tipo(transaccionInstance.tipo)
-            descripcion(transaccionInstance.descripcion)
             monto(transaccionInstance.monto)
         }
     }

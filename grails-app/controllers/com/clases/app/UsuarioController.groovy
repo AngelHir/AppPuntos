@@ -23,8 +23,10 @@ class UsuarioController {
             nombre(usuarioInstance.nombre)
             correoElectronico(usuarioInstance.correoElectronico)
             numeroTelefono(usuarioInstance.numeroTelefono)
-            direccion(usuarioInstance.direccion)
-            puntosAcumulados(usuarioInstance.puntosAcumulados)
+            apellido(usuarioInstance.apellido)
+            puntosAcumulados(usuarioInstance.puntos)
+            numTarjeta(usuarioInstance.numTarjeta)
+            tipoMembresia(usuarioInstance.tipoMembresia)
         }
     }
 

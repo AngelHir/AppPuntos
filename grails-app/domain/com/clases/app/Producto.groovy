@@ -2,6 +2,7 @@ package com.clases.app
 
 class Producto {
 
+    static hasMany= [transacciones: Transaccion]
     Boolean activo=true
     String nombre
     String descripcion
