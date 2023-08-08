@@ -1,8 +1,6 @@
 package com.clases.app
 
-class Persona {
-
-    String nombre
+class Direccion {
 
     static constraints = {
     }
