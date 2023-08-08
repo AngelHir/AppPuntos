@@ -1,8 +1,6 @@
 package com.clases.app
 
-
-class Empleado {
-
+class CatalogoGeneral {
 
     static constraints = {
     }
