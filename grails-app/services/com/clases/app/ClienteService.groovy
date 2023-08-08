@@ -5,16 +5,16 @@ import com.software.componente.app.Message
 import grails.gorm.transactions.Transactional
 
 @Transactional
-class UsuarioService {
+class ClienteService {
 
     /**
      * Busca y devuelve una instancia del Usuario mediante el id
      * @param id Identificador del usuario
      * @return Instancia del Usuario encontrada
      */
-    Usuario get(long id) {
+    Cliente get(long id) {
         log.info 'Plugin : AppPuntos, Servicio : Usuario, Metodo : get'
-        return Usuario.get(id)
+        return Cliente.get(id)
     }
 
     /**
@@ -22,7 +22,7 @@ class UsuarioService {
      * @param usuarioInstance Usuario a actualizar o crear
      * @return Usuario actualizado o creado
      * @throws ObjectException Al encontrar algun error en los campos*/
-    Usuario save(Usuario usuarioInstance) throws Exception {
+    Cliente save(Cliente usuarioInstance) throws Exception {
         log.info 'Plugin : AppPuntos, Servicio : usuario, Metodo : save'
         try {
             if (usuarioInstance.validate() && usuarioInstance.save()) {
@@ -50,10 +50,10 @@ class UsuarioService {
      * @param usuarioMap Datos necesarios para la creacion del nuevo Usuario
      * @return Instancia del Usuario creado
      **/
-    Usuario create(Map usuarioMap) throws Exception {
+    Cliente create(Map usuarioMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create Iniciando'
         try {
-            Usuario usuarioInstance = new Usuario()
+            Cliente usuarioInstance = new Cliente()
             usuarioInstance.nombre = usuarioMap.nombre
             usuarioInstance.direccion = usuarioMap.direccion
             usuarioInstance.contrasenia=usuarioMap.contrasenia
@@ -81,10 +81,10 @@ class UsuarioService {
      * @return Instancia del Usuario actualizado
      * @throws RuntimeException Al no encontrar el Usuario para actualizar
      **/
-    Usuario update(Map usuarioMap) throws Exception {
+    Cliente update(Map usuarioMap) throws Exception {
         log.info 'Plugin : appPuntos, Servicio : usuario, Metodo : update Iniciando'
         try {
-            Usuario usuarioInstance = this.get(usuarioMap.id as long)
+            Cliente usuarioInstance = this.get(usuarioMap.id as long)
             if (!usuarioInstance) {
                 log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [

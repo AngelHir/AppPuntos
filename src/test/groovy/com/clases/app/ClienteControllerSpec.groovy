@@ -10,7 +10,7 @@ import grails.validation.ValidationException
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.testing.gorm.DomainUnitTest
 
-class UsuarioControllerSpec extends Specification implements ControllerUnitTest<UsuarioController>, DomainUnitTest<Usuario> {
+class ClienteControllerSpec extends Specification implements ControllerUnitTest<ClienteController>, DomainUnitTest<Cliente> {
 
     def populateValidParams(params) {
         assert params != null
@@ -22,7 +22,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the index action returns the correct response"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.clienteService = Mock(ClienteService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -47,8 +47,8 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the save action correctly persists"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario)
+        controller.clienteService = Mock(ClienteService) {
+            1 * save(_ as Cliente)
         }
 
         when:
@@ -56,7 +56,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new Usuario(params)
+        request.json = new Cliente(params)
         controller.save()
 
         then:
@@ -66,8 +66,8 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario) >> { Usuario usuario ->
+        controller.clienteService = Mock(ClienteService) {
+            1 * save(_ as Cliente) >> { Cliente usuario ->
                 throw new ValidationException("Invalid instance", usuario.errors)
             }
         }
@@ -76,7 +76,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        request.json = new Usuario(params)
+        request.json = new Cliente(params)
         controller.save()
 
         then:
@@ -86,7 +86,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the show action with a null id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.clienteService = Mock(ClienteService) {
             1 * get(null) >> null
         }
 
@@ -99,8 +99,8 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the show action with a valid id"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * get(2) >> new Usuario()
+        controller.clienteService = Mock(ClienteService) {
+            1 * get(2) >> new Cliente()
         }
 
         when:"A domain instance is passed to the show action"
@@ -124,8 +124,8 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the update action correctly persists"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario)
+        controller.clienteService = Mock(ClienteService) {
+            1 * save(_ as Cliente)
         }
 
         when:
@@ -133,7 +133,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def instance = new Usuario(params)
+        def instance = new Cliente(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -145,8 +145,8 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
-            1 * save(_ as Usuario) >> { Usuario usuario ->
+        controller.clienteService = Mock(ClienteService) {
+            1 * save(_ as Cliente) >> { Cliente usuario ->
                 throw new ValidationException("Invalid instance", usuario.errors)
             }
         }
@@ -154,7 +154,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
         when:
         request.contentType = JSON_CONTENT_TYPE
         request.method = 'PUT'
-        def instance = new Usuario(params)
+        def instance = new Cliente(params)
         instance.id = 1
         instance.version = 0
         controller.update(instance)
@@ -176,7 +176,7 @@ class UsuarioControllerSpec extends Specification implements ControllerUnitTest<
 
     void "Test the delete action with an instance"() {
         given:
-        controller.usuarioService = Mock(UsuarioService) {
+        controller.clienteService = Mock(ClienteService) {
             1 * delete(2)
         }
 

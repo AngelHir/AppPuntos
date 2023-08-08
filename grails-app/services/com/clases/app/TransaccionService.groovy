@@ -54,7 +54,7 @@ class TransaccionService {
         log.info 'Plugin : facturacionNomina, Servicio : Transaccion, Metodo : create Iniciando'
         try {
             Transaccion transaccionInstance = new Transaccion()
-            transaccionInstance.usuario = transaccionMap.usuario as Usuario
+            transaccionInstance.usuario = transaccionMap.usuario as Cliente
             transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
             transaccionInstance.descripcion = transaccionMap.descripcion
@@ -91,7 +91,7 @@ class TransaccionService {
                         Message.getMensaje('transaccion.label', 'Transaccion'), transaccionInstance.id
                 ]))
             }
-            transaccionInstance.usuario = transaccionMap.usuario as Usuario
+            transaccionInstance.usuario = transaccionMap.usuario as Cliente
             transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
             transaccionInstance.descripcion = transaccionMap.descripcion

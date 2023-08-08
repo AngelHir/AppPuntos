@@ -10,7 +10,7 @@ class Transaccion {
     String local
     int descuento
     int puntosGenerados
-    Usuario usuario
+    Cliente usuario
 
     static constraints = {
         fecha nullable: false

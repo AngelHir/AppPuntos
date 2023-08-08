@@ -3,12 +3,10 @@ package com.clases.app
 import com.software.componente.app.ObjectException
 import com.software.componente.app.Message
 import grails.converters.JSON
-import grails.gorm.PagedResultList
 
+class ClienteController {
 
-class UsuarioController {
-
-    UsuarioService usuarioService
+    ClienteService clienteService
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -17,7 +15,7 @@ class UsuarioController {
 
     def show(long id) {
         log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : show'
-        Usuario usuarioInstance = usuarioService.get(id)
+        Cliente usuarioInstance = clienteService.get(id)
         render(contentType: "application/json") {
             id(usuarioInstance.id)
             nombre(usuarioInstance.nombre)
@@ -37,7 +35,7 @@ class UsuarioController {
     def save() {
         log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : save'
         try {
-            Usuario usuarioInstance = usuarioService.create(JSON.parse(request) as Map)
+            Cliente usuarioInstance = clienteService.create(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.created.message', parametros: [
@@ -60,7 +58,7 @@ class UsuarioController {
         def update() {
             log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : update'
             try {
-                Usuario usuarioInstance = usuarioService.update(JSON.parse(request) as Map)
+                Cliente usuarioInstance = clienteService.update(JSON.parse(request) as Map)
                 render(contentType: "application/json") {
                     success(
                             Message.getMensaje(codigo: 'default.updated.message', parametros: [

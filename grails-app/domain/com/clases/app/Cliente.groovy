@@ -1,6 +1,6 @@
 package com.clases.app
 
-class Usuario {
+class Cliente {
 
     static hasMany = [transacciones: Transaccion]
     boolean activo=true
