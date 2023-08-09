@@ -10,7 +10,7 @@ class Persona {
     static constraints = {
         nombre nullable: false, blank: false
         apellido nullable: false, blank: false
-        email nullable: false, blank: false
+        email nullable: false, blank: false, email: true
         telefono nullable: false, blank: false
     }
 
