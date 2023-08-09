@@ -3,22 +3,21 @@ package com.clases.app
 class Transaccion {
 
     static hasMany = [productos: CatalogoGeneral]
-    Date fecha = new Date()
-    Boolean activo=true
-    String tipo
-    BigDecimal monto
-    String local
-    int descuento
-    int puntosGenerados
-    Cliente usuario
+        Date fecha = new Date()
+        Boolean activo=true
+        String tipo
+        BigDecimal subtotal
+        BigDecimal total
+        Sucursal sucursal
+        BigDecimal descuento
+        Cliente cliente
 
     static constraints = {
         fecha nullable: false
         tipo nullable: false
-        monto nullable: false
-        puntosGenerados nullable: true
+        subtotal nullable: false
+        total nullable: false
         descuento nullable : true
-        local nullable: false
         productos nullable: false
     }
 
