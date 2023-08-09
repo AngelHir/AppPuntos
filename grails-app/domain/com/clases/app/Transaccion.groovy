@@ -2,7 +2,7 @@ package com.clases.app
 
 class Transaccion {
 
-    static hasMany = [productos: Producto]
+    static hasMany = [productos: CatalogoGeneral]
     Date fecha = new Date()
     Boolean activo=true
     String tipo

@@ -9,8 +9,8 @@ class Cliente {
     int puntos=0
 
     static constraints = {
-    numTarjeta Length:16, nullable: false, blank: false
-    tipoMembresia nullable: false, blank: false
+    numTarjeta Length:16, nullable: true, blank: false
+    tipoMembresia nullable: true, blank: false
     puntos nullable: false, blank: false
     }
 
