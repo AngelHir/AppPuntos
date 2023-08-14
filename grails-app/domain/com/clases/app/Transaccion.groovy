@@ -18,7 +18,7 @@ class Transaccion {
         subtotal nullable: false
         total nullable: false
         descuento nullable : true
-        productos nullable: false
+
     }
 
     static mapping = {

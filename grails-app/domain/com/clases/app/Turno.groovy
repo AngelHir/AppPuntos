@@ -11,4 +11,8 @@ class Turno {
 
     static constraints = {
     }
+
+    static mapping = {
+        id generator: 'sequence', params: [sequence_name:'turno_seq']
+    }
 }

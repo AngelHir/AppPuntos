@@ -6,6 +6,7 @@ class Persona {
     String apellido
     String email
     String telefono
+    Direccion direccion
 
     static constraints = {
         nombre nullable: false, blank: false

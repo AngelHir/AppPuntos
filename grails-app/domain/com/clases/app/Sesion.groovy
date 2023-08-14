@@ -10,4 +10,8 @@ class Sesion {
 
     static constraints = {
     }
+
+    static mapping = {
+        id generator: 'sequence', params: [ sequence_name:'sesion_seq']
+    }
 }
