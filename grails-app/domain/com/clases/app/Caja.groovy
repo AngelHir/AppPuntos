@@ -12,5 +12,6 @@ class Caja {
 
 
     static constraints = {
+        nombre nullable: false, blank: false
     }
 }

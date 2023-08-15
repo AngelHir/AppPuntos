@@ -13,7 +13,7 @@ class ProductoController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
-
+/**
     def show(long id) {
         log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : show'
         Producto productoInstance =productoService.get(id)
@@ -27,10 +27,10 @@ class ProductoController {
         }
     }
 
-    /**
+
      * Controlador para la creacion de un nuevo Producto
      * @return Mapa con mensaje de exito de creacion
-     * */
+
     def save() {
         log.info 'Plugin : AppPuntos, Controlador : Producto, Accion : save'
         try {
@@ -53,7 +53,7 @@ class ProductoController {
     /**
      * Controlador para la actualizacion de Productos existentes
      * @return Mapa con mensaje de exito de actualizacion
-     * */
+
     def update() {
         log.info 'Plugin : appPuntos, Controlador : Producto, Accion : update'
         try {
@@ -74,6 +74,6 @@ class ProductoController {
             }
         }
     }
-
+ * */
 
 }
