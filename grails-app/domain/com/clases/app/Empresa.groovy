@@ -2,10 +2,12 @@ package com.clases.app
 
 class Empresa {
 
+    static hasMany = [sucursales:Sucursal]
     String nombre
     String rfc
     Direccion direccion
     String razonSocial
+
 
     static constraints = {
 

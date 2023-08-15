@@ -3,9 +3,14 @@ package com.clases.app
 
 class Sesion {
 
+    static belongsTo = [caja:Caja]
+
+    static hasMany = [transacciones:Transaccion]
+
     Empleado empleado
-    boolean atendido = false
-    static belongsTo = [turno: Turno]
+
+    boolean activo = true
+
 
 
     static constraints = {

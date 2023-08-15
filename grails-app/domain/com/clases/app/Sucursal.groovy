@@ -2,13 +2,16 @@ package com.clases.app
 
 class Sucursal {
 
+    static belongsTo = [empresa:Empresa]
+
+    static hasMany = [cajas:Caja]
+
     String nombre
 
     String clave
 
     Direccion direccion
 
-    Empresa empresa
 
     static constraints = {
         nombre nullable: false, blank: false

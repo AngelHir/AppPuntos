@@ -4,6 +4,7 @@ class Transaccion {
 
     static hasMany = [productos: CatalogoGeneral]
     static hasOne = [cashback:Cashback]
+    static belongsTo = [sesion:Sesion]
 
         Date fecha = new Date()
         Boolean activo=true
