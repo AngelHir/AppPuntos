@@ -2,6 +2,8 @@ package com.clases.app
 
 class Persona {
 
+    Boolean activo=true
+
     String nombre
     String apellido
     String email

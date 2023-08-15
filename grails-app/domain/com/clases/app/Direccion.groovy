@@ -2,6 +2,8 @@ package com.clases.app
 
 class Direccion {
 
+    Boolean activo=true
+
     String calle
 
     String numInterior

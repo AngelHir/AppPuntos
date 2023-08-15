@@ -7,6 +7,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ClienteService {
 
+    PersonaService personaService
+
     /**
      * Busca y devuelve una instancia del Usuario mediante el id
      * @param id Identificador del usuario
@@ -54,11 +56,9 @@ class ClienteService {
         log.info 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create Iniciando'
         try {
             Cliente usuarioInstance = new Cliente()
-            usuarioInstance.nombre = usuarioMap.nombre
-            usuarioInstance.direccion = usuarioMap.direccion
-            usuarioInstance.contrasenia=usuarioMap.contrasenia
-            usuarioInstance.numeroTelefono = usuarioMap.numeroTelefono
-            usuarioInstance.correoElectronico = usuarioMap.correoElectronico
+            usuarioInstance.persona= personaService.create(usuarioMap)
+            usuarioInstance.numTarjeta = usuarioMap.nombre
+            usuarioInstance.tipoMembresia = usuarioMap.direccion
 
             if (usuarioMap.inactivo) {
                 usuarioInstance.activo = false
@@ -91,11 +91,8 @@ class ClienteService {
                         Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
                 ]))
             }
-            usuarioInstance.nombre = usuarioMap.nombre
-            usuarioInstance.direccion = usuarioMap.direccion
-            usuarioInstance.contrasenia=usuarioMap.contrasenia
-            usuarioInstance.numeroTelefono = usuarioMap.numeroTelefono
-            usuarioInstance.correoElectronico = usuarioMap.correoElectronico
+            usuarioInstance.numTarjeta = usuarioMap.nombre
+            usuarioInstance.tipoMembresia = usuarioMap.direccion
 
             this.save(usuarioInstance)
             log.info 'Plugin : appPuntos, Servicio : Usuario, Metodo : update Completado'

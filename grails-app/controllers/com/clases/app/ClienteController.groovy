@@ -12,7 +12,7 @@ class ClienteController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
-
+/**
     def show(long id) {
         log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : show'
         Cliente usuarioInstance = clienteService.get(id)
@@ -27,6 +27,7 @@ class ClienteController {
             tipoMembresia(usuarioInstance.tipoMembresia)
         }
     }
+ **/
 
     /**
      * Controlador para la creacion de un nuevo Usuario

@@ -7,6 +7,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class PersonaService {
 
+    DireccionService direccionService
+
     /**
      * Busca y devuelve una instancia de la Persona mediante el id
      * @param id Identificador de la Persona
@@ -54,6 +56,7 @@ class PersonaService {
         log.info 'Plugin : facturacionNomina, Servicio : persona, Metodo : create Iniciando'
         try {
             Persona personaInstance = new Persona()
+            personaInstance.direccion = direccionService.create(personaMap)
             personaInstance.nombre = personaMap.nombre
             personaInstance.apellido= personaMap.apellido
             personaInstance.telefono = personaMap.telefono
