@@ -55,6 +55,7 @@ class PersonaService {
         try {
             Persona personaInstance = new Persona()
             personaInstance.nombre = personaMap.nombre
+            personaInstance.apellido= personaMap.apellido
             personaInstance.telefono = personaMap.telefono
             personaInstance.email = personaMap.email
 
@@ -82,24 +83,23 @@ class PersonaService {
     Persona update(Map personaMap) throws Exception {
         log.info 'Plugin : appPuntos, Servicio : persona, Metodo : update Iniciando'
         try {
-            Cliente usuarioInstance = this.get(usuarioMap.id as long)
-            if (!usuarioInstance) {
-                log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error No Encontrado'
+            Persona personaInstance = this.get(personaMap.id as long)
+            if (!personaInstance) {
+                log.error 'Plugin : appPuntos, Servicio : persona, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
+                        Message.getMensaje('persona.label', 'Persona'), personaInstance.id
                 ]))
             }
-            usuarioInstance.nombre = usuarioMap.nombre
-            usuarioInstance.direccion = usuarioMap.direccion
-            usuarioInstance.contrasenia=usuarioMap.contrasenia
-            usuarioInstance.numeroTelefono = usuarioMap.numeroTelefono
-            usuarioInstance.correoElectronico = usuarioMap.correoElectronico
+            personaInstance.nombre = personaMap.nombre
+            personaInstance.apellido= personaMap.apellido
+            personaInstance.telefono = personaMap.telefono
+            personaInstance.email = personaMap.email
 
-            this.save(usuarioInstance)
-            log.info 'Plugin : appPuntos, Servicio : Usuario, Metodo : update Completado'
-            return usuarioInstance
+            this.save(personaInstance)
+            log.info 'Plugin : appPuntos, Servicio : persona, Metodo : update Completado'
+            return personaInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : persona, Metodo : update, Error'
             throw e
         }
     }

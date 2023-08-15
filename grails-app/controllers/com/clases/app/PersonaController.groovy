@@ -34,5 +34,30 @@ class PersonaController {
         }
     }
 
+    /**
+     * Controlador para la actualizacion de Personas existentes
+     * @return Mapa con mensaje de exito de actualizacion
+     * */
+    def update() {
+        log.info 'Plugin : appPuntos, Controlador : persona, Accion : update'
+        try {
+            Persona personaInstance = personaService.update(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.updated.message', parametros: [
+                                Message.getMensaje('persona.label', 'Persona'),
+                                personaInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") {
+                mensajeError(e.getMessage())
+            }
+        }
+    }
+
 
 }

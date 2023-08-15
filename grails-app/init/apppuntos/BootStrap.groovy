@@ -7,7 +7,6 @@ class BootStrap {
     AppService appService
 
     def init = { servletContext ->
-        appService.crearProductos()
     }
     def destroy = {
     }
