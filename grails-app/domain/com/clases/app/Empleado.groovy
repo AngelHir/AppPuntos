@@ -9,6 +9,10 @@ class Empleado {
 
     String puesto
 
+    Sucursal sucursal
+
+
+
     static constraints = {
         ingreso nullable: false, blank: false
         salario nullable: false, blank: false

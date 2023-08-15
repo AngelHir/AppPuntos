@@ -3,6 +3,8 @@ package com.clases.app
 class Transaccion {
 
     static hasMany = [productos: CatalogoGeneral]
+    static hasOne = [cashback:Cashback]
+
         Date fecha = new Date()
         Boolean activo=true
         String tipo
@@ -18,6 +20,9 @@ class Transaccion {
         subtotal nullable: false
         total nullable: false
         descuento nullable : true
+        sucursal nullable: false
+        cliente nullable: false
+
 
     }
 

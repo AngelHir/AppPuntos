@@ -5,6 +5,7 @@ class Empresa {
     String nombre
     String rfc
     Direccion direccion
+    String razonSocial
 
     static constraints = {
 

@@ -2,11 +2,12 @@ package com.clases.app
 
 class Cashback {
 
+    static belongsTo = [transaccion:Transaccion]
+
     Cliente cliente
 
     int puntosGenerados
 
-    Transaccion transaccion
 
 
     static constraints = {
