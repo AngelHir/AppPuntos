@@ -14,4 +14,8 @@ class Caja {
     static constraints = {
         nombre nullable: false, blank: false
     }
+
+    static mapping = {
+        id generator:'sequence',params: [sequence_name:'caja_seq']
+    }
 }
