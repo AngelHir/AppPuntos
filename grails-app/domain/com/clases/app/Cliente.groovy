@@ -5,6 +5,7 @@ class Cliente {
 
     static hasMany = [transacciones: Transaccion]
     Boolean activo=true
+    String rfc
     Persona persona
     String numTarjeta
     String tipoMembresia
@@ -12,6 +13,7 @@ class Cliente {
 
     static constraints = {
     numTarjeta Length:16, nullable: true, blank: false
+    rfc nullable: true
     tipoMembresia nullable: true, blank: false
     puntos nullable: false, blank: false
     }

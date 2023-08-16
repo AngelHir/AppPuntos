@@ -18,10 +18,11 @@ class TransaccionController {
         Transaccion transaccionInstance = transaccionService.get(id)
         render(contentType: "application/json") {
             id(transaccionInstance.id)
-            usuario(transaccionInstance.usuario)
+            cliente(transaccionInstance.cliente)
             fecha(transaccionInstance.fecha)
             tipo(transaccionInstance.tipo)
-            monto(transaccionInstance.monto)
+            sucursal(transaccionInstance.sucursal)
+            total(transaccionInstance.total)
         }
     }
 

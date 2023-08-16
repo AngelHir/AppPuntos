@@ -53,12 +53,15 @@ class TransaccionService {
     Transaccion create(Map transaccionMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : Transaccion, Metodo : create Iniciando'
         try {
-            Transaccion transaccionInstance = new Transaccion()
-            transaccionInstance.usuario = transaccionMap.usuario as Cliente
+            Transaccion  transaccionInstance = new Transaccion()
+            transaccionInstance.cliente = transaccionMap.usuario as Cliente
+            transaccionInstance.sucursal = transaccionMap.sucursal as Sucursal
             transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
-            transaccionInstance.descripcion = transaccionMap.descripcion
-            transaccionInstance.monto = transaccionMap.monto as BigDecimal
+            transaccionInstance.descuento = transaccionMap.decuento as BigDecimal
+            transaccionInstance.subtotal = transaccionMap.subtotal as BigDecimal
+            transaccionInstance.total = transaccionMap.total as BigDecimal
+
 
             if (transaccionMap.inactivo) {
                 transaccionInstance.activo = false
@@ -91,11 +94,15 @@ class TransaccionService {
                         Message.getMensaje('transaccion.label', 'Transaccion'), transaccionInstance.id
                 ]))
             }
-            transaccionInstance.usuario = transaccionMap.usuario as Cliente
+            transaccionInstance.cliente = transaccionMap.usuario as Cliente
+            transaccionInstance.sucursal = transaccionMap.sucursal as Sucursal
             transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
-            transaccionInstance.descripcion = transaccionMap.descripcion
-            transaccionInstance.monto = transaccionMap.monto as BigDecimal
+            transaccionInstance.descuento = transaccionMap.decuento as BigDecimal
+            transaccionInstance.subtotal = transaccionMap.subtotal as BigDecimal
+            transaccionInstance.total = transaccionMap.total as BigDecimal
+
+
 
             this.save(transaccionInstance)
             log.info 'Plugin : appPuntos, Servicio : Transaccion, Metodo : update Completado'
