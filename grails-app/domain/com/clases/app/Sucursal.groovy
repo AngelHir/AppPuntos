@@ -15,7 +15,7 @@ class Sucursal {
 
     static constraints = {
         nombre nullable: false, blank: false
-        clave lengt:3, nullable: false, blank: false
+        clave lengt:5, nullable: false, blank: false
     }
 
     static mapping = {

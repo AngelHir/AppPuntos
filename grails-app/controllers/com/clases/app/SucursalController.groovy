@@ -1,16 +1,9 @@
 package com.clases.app
 
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
+import com.software.componente.app.ObjectException
+import com.software.componente.app.Message
+import grails.converters.JSON
 
-import grails.gorm.transactions.ReadOnly
-import grails.gorm.transactions.Transactional
-
-@ReadOnly
 class SucursalController {
 
     SucursalService sucursalService
@@ -18,68 +11,52 @@ class SucursalController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond sucursalService.list(params), model:[sucursalCount: sucursalService.count()]
-    }
 
-    def show(Long id) {
-        respond sucursalService.get(id)
-    }
-
-    @Transactional
-    def save(Sucursal sucursal) {
-        if (sucursal == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (sucursal.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond sucursal.errors
-            return
-        }
-
+    /**
+     * Controlador para la creacion de una nueva Sucursal
+     * @return Mapa con mensaje de exito de creacion
+     * */
+    def save() {
+        log.info 'Plugin : AppPuntos, Controlador : sucursal, Accion : save'
         try {
-            sucursalService.save(sucursal)
-        } catch (ValidationException e) {
-            respond sucursal.errors
-            return
+            Sucursal sucursalInstance = sucursalService.create(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.created.message', parametros: [
+                                Message.getMensaje('sucursal.label', 'Sucursal'),
+                                sucursalInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") { mensajeError(e.getMessage()) }
         }
-
-        respond sucursal, [status: CREATED, view:"show"]
     }
 
-    @Transactional
-    def update(Sucursal sucursal) {
-        if (sucursal == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (sucursal.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond sucursal.errors
-            return
-        }
-
+    /**
+     * Controlador para la actualizacion de Sucursales existentes
+     * @return Mapa con mensaje de exito de actualizacion
+     * */
+    def update() {
+        log.info 'Plugin : appPuntos, Controlador : sucursal, Accion : update'
         try {
-            sucursalService.save(sucursal)
-        } catch (ValidationException e) {
-            respond sucursal.errors
-            return
+            Sucursal sucursalInstance = sucursalService.update(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.updated.message', parametros: [
+                                Message.getMensaje('empresa.label', 'Empresa'),
+                                sucursalInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") {
+                mensajeError(e.getMessage())
+            }
         }
-
-        respond sucursal, [status: OK, view:"show"]
-    }
-
-    @Transactional
-    def delete(Long id) {
-        if (id == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        sucursalService.delete(id)
-
-        render status: NO_CONTENT
     }
 }

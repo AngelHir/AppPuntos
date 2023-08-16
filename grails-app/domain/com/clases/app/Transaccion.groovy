@@ -23,8 +23,6 @@ class Transaccion {
         descuento nullable : true
         sucursal nullable: false
         cliente nullable: false
-
-
     }
 
     static mapping = {

@@ -61,42 +61,41 @@ class CajaService {
                 cajaInstance.activo = false
             }
 
-            this.save(usuarioInstance)
-            log.info 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create Completado'
-            return usuarioInstance
+            this.save(cajaInstance)
+            log.info 'Plugin : facturacionNomina, Servicio : caja, Metodo : create Completado'
+            return cajaInstance
         }
         catch (Exception e) {
-            log.error 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create, Error'
+            log.error 'Plugin : facturacionNomina, Servicio : caja, Metodo : create, Error'
             throw e
         }
     }
 
 
     /**
-     * Actualizacion de un Banco existente
-     * @param usuarioMap Datos necesarios para la actualizacion del Usuario
-     * @return Instancia del Usuario actualizado
-     * @throws RuntimeException Al no encontrar el Usuario para actualizar
+     * Actualizacion de una Caja existente
+     * @param cajaMap Datos necesarios para la actualizacion de la Caja
+     * @return Instancia de la Caja actualizado
+     * @throws RuntimeException Al no encontrar la Caja para actualizar
      **/
-    Cliente update(Map usuarioMap) throws Exception {
-        log.info 'Plugin : appPuntos, Servicio : usuario, Metodo : update Iniciando'
+    Caja update(Map cajaMap) throws Exception {
+        log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Iniciando'
         try {
-            Cliente usuarioInstance = this.get(usuarioMap.id as long)
-            if (!usuarioInstance) {
-                log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error No Encontrado'
+            Caja cajaInstance = this.get(cajaMap.id as long)
+            if (!cajaInstance) {
+                log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
+                        Message.getMensaje('caja.label', 'Caja'), cajaInstance.id
                 ]))
             }
-            usuarioInstance.persona= personaService.update(usuarioMap)
-            usuarioInstance.numTarjeta = usuarioMap.nombre
-            usuarioInstance.tipoMembresia = usuarioMap.direccion
+            cajaInstance.nombre = cajaMap.nombre
+            cajaInstance.sucursal= cajaMap.sucursal as Sucursal
 
-            this.save(usuarioInstance)
-            log.info 'Plugin : appPuntos, Servicio : Usuario, Metodo : update Completado'
-            return usuarioInstance
+            this.save(cajaInstance)
+            log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Completado'
+            return cajaInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error'
             throw e
         }
     }

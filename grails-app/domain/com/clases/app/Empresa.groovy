@@ -10,6 +10,9 @@ class Empresa {
 
 
     static constraints = {
+        nombre nullable: false, blank: false, unique: true
+        rfc nullable: false, blank: false, unique: true, lengh:12
+        razonSocial nullable: false, blank: false
 
     }
 
