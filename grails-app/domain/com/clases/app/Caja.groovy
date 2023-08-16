@@ -2,6 +2,8 @@ package com.clases.app
 
 class Caja {
 
+    Boolean activo=true
+
     static belongsTo = [sucursal: Sucursal]
 
     static hasMany = [sesiones:Sesion,empleados:Empleado]
