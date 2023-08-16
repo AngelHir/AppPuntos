@@ -15,7 +15,7 @@ class ClienteService {
      * @return Instancia del Usuario encontrada
      */
     Cliente get(long id) {
-        log.info 'Plugin : AppPuntos, Servicio : Usuario, Metodo : get'
+        log.info 'Plugin : AppPuntos, Servicio : cliente, Metodo : get'
         return Cliente.get(id)
     }
 
@@ -57,8 +57,8 @@ class ClienteService {
         try {
             Cliente usuarioInstance = new Cliente()
             usuarioInstance.persona= personaService.create(usuarioMap)
-            usuarioInstance.numTarjeta = usuarioMap.nombre
-            usuarioInstance.tipoMembresia = usuarioMap.direccion
+            usuarioInstance.numTarjeta = usuarioMap.numTarjeta
+            usuarioInstance.tipoMembresia = usuarioMap.tipoMembresia
 
             if (usuarioMap.inactivo) {
                 usuarioInstance.activo = false
@@ -91,6 +91,7 @@ class ClienteService {
                         Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
                 ]))
             }
+            usuarioInstance.persona= personaService.update(usuarioMap)
             usuarioInstance.numTarjeta = usuarioMap.nombre
             usuarioInstance.tipoMembresia = usuarioMap.direccion
 
@@ -102,4 +103,6 @@ class ClienteService {
             throw e
         }
     }
+
+
 }

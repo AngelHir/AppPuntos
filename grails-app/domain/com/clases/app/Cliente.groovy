@@ -4,6 +4,7 @@ package com.clases.app
 class Cliente {
 
     static hasMany = [transacciones: Transaccion]
+    Boolean activo=true
     Persona persona
     String numTarjeta
     String tipoMembresia

@@ -8,26 +8,30 @@ class ClienteController {
 
     ClienteService clienteService
 
+    DireccionService direccionService
+
+    PersonaService personaService
+
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
-/**
+
     def show(long id) {
         log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : show'
         Cliente usuarioInstance = clienteService.get(id)
+        Persona personaInstance= personaService.get(id)
+        Direccion direccionInstance= direccionService.get(id)
         render(contentType: "application/json") {
             id(usuarioInstance.id)
-            nombre(usuarioInstance.nombre)
-            correoElectronico(usuarioInstance.correoElectronico)
-            numeroTelefono(usuarioInstance.numeroTelefono)
-            apellido(usuarioInstance.apellido)
+            nombre(personaInstance.nombre)
+            apellido(personaInstance.apellido)
             puntosAcumulados(usuarioInstance.puntos)
             numTarjeta(usuarioInstance.numTarjeta)
             tipoMembresia(usuarioInstance.tipoMembresia)
         }
     }
- **/
+
 
     /**
      * Controlador para la creacion de un nuevo Usuario

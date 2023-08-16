@@ -7,11 +7,21 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class DireccionService {
 
+    /**
+     * Busca y devuelve una instancia de la Direccion mediante el id
+     * @param id Identificador de la Direccion
+     * @return Instancia de la Direccion encontrada
+     */
+    Direccion get(long id) {
+        log.info 'Plugin : AppPuntos, Servicio : direccion, Metodo : get'
+        return Direccion.get(id)
+    }
+
 
     /**
-     * Guarda en la base de datos los campos de la Persona nueva o actualizada
-     * @param direccionInstance Persona a actualizar o crear
-     * @return Persona actualizada o creada
+     * Guarda en la base de datos los campos de la Direccion nueva o actualizada
+     * @param direccionInstance Direccion a actualizar o crear
+     * @return Direccion actualizada o creada
      * @throws ObjectException Al encontrar algun error en los campos*/
     Direccion save(Direccion direccionInstance) throws Exception {
         log.info 'Plugin : AppPuntos, Servicio : direccion, Metodo : save'
@@ -70,10 +80,10 @@ class DireccionService {
 
 
     /**
-     * Actualizacion de una Persona existente
-     * @param personaMap Datos necesarios para la actualizacion de la Persona
-     * @return Instancia de la Persona actualizado
-     * @throws RuntimeException Al no encontrar la Persona para actualizar
+         * Actualizacion de una Direccion existente
+     * @param direccionMap Datos necesarios para la actualizacion de la Direccion
+     * @return Instancia de la Direccion actualizada
+     * @throws RuntimeException Al no encontrar la Direccion para actualizar
      **/
     Direccion update(Map direccionMap) throws Exception {
         log.info 'Plugin : appPuntos, Servicio : direccion, Metodo : update Iniciando'
@@ -82,7 +92,7 @@ class DireccionService {
             if (!direccionInstance) {
                 log.error 'Plugin : appPuntos, Servicio : persona, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('persona.label', 'Persona'), personaInstance.id
+                        Message.getMensaje('direccion.label', 'Direccion'), direccionInstance.id
                 ]))
             }
             direccionInstance.calle = direccionMap.calle
@@ -92,11 +102,11 @@ class DireccionService {
             direccionInstance.ciudad = direccionMap.ciudad
             direccionInstance.codigoPostal = direccionMap.codigoPostal
 
-            this.save(personaInstance)
-            log.info 'Plugin : appPuntos, Servicio : persona, Metodo : update Completado'
-            return personaInstance
+            this.save(direccionInstance)
+            log.info 'Plugin : appPuntos, Servicio : direccion, Metodo : update Completado'
+            return direccionInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : persona, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : direccion, Metodo : update, Error'
             throw e
         }
     }

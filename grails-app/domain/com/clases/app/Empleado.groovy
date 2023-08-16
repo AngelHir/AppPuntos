@@ -11,6 +11,8 @@ class Empleado {
 
     Sucursal sucursal
 
+    Persona persona
+
 
 
     static constraints = {

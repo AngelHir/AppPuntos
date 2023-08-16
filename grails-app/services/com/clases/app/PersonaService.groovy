@@ -52,7 +52,8 @@ class PersonaService {
      * @param personaMap Datos necesarios para la creacion de la nueva Persona
      * @return Instancia de la Persona creada
      **/
-    Persona create(Map personaMap) throws Exception {
+    Persona
+    create(Map personaMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : persona, Metodo : create Iniciando'
         try {
             Persona personaInstance = new Persona()
@@ -93,6 +94,7 @@ class PersonaService {
                         Message.getMensaje('persona.label', 'Persona'), personaInstance.id
                 ]))
             }
+            personaInstance.direccion = direccionService.update(personaMap)
             personaInstance.nombre = personaMap.nombre
             personaInstance.apellido= personaMap.apellido
             personaInstance.telefono = personaMap.telefono
