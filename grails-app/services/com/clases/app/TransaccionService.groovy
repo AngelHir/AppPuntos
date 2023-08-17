@@ -21,7 +21,8 @@ class TransaccionService {
      * Guarda en la base de datos los campos de una Transaccion, nuevo o actualizado
      * @param transaccionInstance Transaccion a actualizar o crear
      * @return Transaccion actualizado o creado
-     * @throws com.software.componente.app.ObjectException Al encontrar algun error en los campos*/
+     * @throws com.software.componente.app.ObjectException Al encontrar algun error en los campos
+     * */
     Transaccion save(Transaccion transaccionInstance) throws Exception {
         log.info 'Plugin : AppPuntos, Servicio : transaccion, Metodo : save'
         try {

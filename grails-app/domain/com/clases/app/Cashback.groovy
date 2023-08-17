@@ -6,7 +6,11 @@ class Cashback {
 
     Cliente cliente
 
+    String tipo
+
     int puntosGenerados
+
+    BigDecimal monto
 
 
 
