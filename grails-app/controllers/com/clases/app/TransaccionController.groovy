@@ -11,21 +11,6 @@ class TransaccionController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-
-
-    def show(long id) {
-        log.info 'Plugin : appPuntos, Controlador :Transaccion, Accion : show'
-        Transaccion transaccionInstance = transaccionService.get(id)
-        render(contentType: "application/json") {
-            id(transaccionInstance.id)
-            cliente(transaccionInstance.cliente)
-            fecha(transaccionInstance.fecha)
-            tipo(transaccionInstance.tipo)
-            sucursal(transaccionInstance.sucursal)
-            total(transaccionInstance.total)
-        }
-    }
-
     /**
      * Controlador para la creacion de una nueva Transaccion
      * @return Mapa con mensaje de exito de creacion

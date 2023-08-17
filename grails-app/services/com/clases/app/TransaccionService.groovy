@@ -56,7 +56,6 @@ class TransaccionService {
             Transaccion  transaccionInstance = new Transaccion()
             transaccionInstance.cliente = transaccionMap.usuario as Cliente
             transaccionInstance.sucursal = transaccionMap.sucursal as Sucursal
-            transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
             transaccionInstance.descuento = transaccionMap.decuento as BigDecimal
             transaccionInstance.subtotal = transaccionMap.subtotal as BigDecimal
@@ -96,7 +95,6 @@ class TransaccionService {
             }
             transaccionInstance.cliente = transaccionMap.usuario as Cliente
             transaccionInstance.sucursal = transaccionMap.sucursal as Sucursal
-            transaccionInstance.fecha = transaccionMap.fecha as Date
             transaccionInstance.tipo = transaccionMap.tipo
             transaccionInstance.descuento = transaccionMap.decuento as BigDecimal
             transaccionInstance.subtotal = transaccionMap.subtotal as BigDecimal
