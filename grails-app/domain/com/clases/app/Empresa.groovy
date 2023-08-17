@@ -3,6 +3,7 @@ package com.clases.app
 class Empresa {
 
     static hasMany = [sucursales:Sucursal]
+    Boolean activo=true
     String nombre
     String rfc
     Direccion direccion

@@ -6,6 +6,8 @@ class Sucursal {
 
     static hasMany = [cajas:Caja]
 
+    Boolean activo=true
+
     String nombre
 
     String clave

@@ -7,6 +7,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class EmpresaService {
 
+    DireccionService direccionService
+
     /**
      * Busca y devuelve una instancia de la Empresa mediante el id
      * @param id Identificador de la Empresa
@@ -53,17 +55,19 @@ class EmpresaService {
     Empresa create(Map empresaMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : empresa, Metodo : create Iniciando'
         try {
-            Caja cajaInstance = new Caja()
-            cajaInstance.nombre = cajaMap.nombre
-            cajaInstance.sucursal= cajaMap.sucursal as Sucursal
+            Empresa empresaInstance = new Empresa()
+            empresaInstance.direccion= direccionService.create(empresaMap)
+            empresaInstance.nombre = empresaMap.nombre
+            empresaInstance.razonSocial= empresaMap.razonSocial
+            empresaInstance.rfc=empresaMap.rfc
 
-            if (cajaMap.inactivo) {
-                cajaInstance.activo = false
+            if (empresaMap.inactivo) {
+                empresaInstance.activo = false
             }
 
-            this.save(cajaInstance)
+            this.save(empresaInstance)
             log.info 'Plugin : facturacionNomina, Servicio : caja, Metodo : create Completado'
-            return cajaInstance
+            return empresaInstance
         }
         catch (Exception e) {
             log.error 'Plugin : facturacionNomina, Servicio : caja, Metodo : create, Error'
@@ -73,29 +77,31 @@ class EmpresaService {
 
 
     /**
-     * Actualizacion de una Caja existente
-     * @param cajaMap Datos necesarios para la actualizacion de la Caja
-     * @return Instancia de la Caja actualizado
-     * @throws RuntimeException Al no encontrar la Caja para actualizar
+     * Actualizacion de una Empresa existente
+     * @param empresaMap Datos necesarios para la actualizacion de la Empresa
+     * @return Instancia de la Empresa actualizado
+     * @throws RuntimeException Al no encontrar la Empresa para actualizar
      **/
-    Caja update(Map cajaMap) throws Exception {
-        log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Iniciando'
+    Empresa update(Map empresaMap) throws Exception {
+        log.info 'Plugin : appPuntos, Servicio : empresa, Metodo : update Iniciando'
         try {
-            Caja cajaInstance = this.get(cajaMap.id as long)
-            if (!cajaInstance) {
-                log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error No Encontrado'
+            Empresa empresaInstance = this.get(empresaMap.id as long)
+            if (!empresaInstance) {
+                log.error 'Plugin : appPuntos, Servicio : empresa, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('caja.label', 'Caja'), cajaInstance.id
+                        Message.getMensaje('empresa.label', 'Empresa'), empresaInstance.id
                 ]))
             }
-            cajaInstance.nombre = cajaMap.nombre
-            cajaInstance.sucursal= cajaMap.sucursal as Sucursal
+            empresaInstance.direccion= direccionService.update(empresaMap)
+            empresaInstance.nombre = empresaMap.nombre
+            empresaInstance.razonSocial= empresaMap.razonSocial
+            empresaInstance.rfc=empresaMap.rfc
 
-            this.save(cajaInstance)
-            log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Completado'
-            return cajaInstance
+            this.save(empresaInstance)
+            log.info 'Plugin : appPuntos, Servicio : empresa, Metodo : update Completado'
+            return empresaInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : empresa , Metodo : update, Error'
             throw e
         }
     }
