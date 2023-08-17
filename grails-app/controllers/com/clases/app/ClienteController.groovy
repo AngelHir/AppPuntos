@@ -40,13 +40,13 @@ class ClienteController {
      * @return Mapa con mensaje de exito de creacion
      * */
     def save() {
-        log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : save'
+        log.info 'Plugin : AppPuntos, Controlador : cliente, Accion : save'
         try {
             Cliente usuarioInstance = clienteService.create(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.created.message', parametros: [
-                                Message.getMensaje('usuario.label', 'Usuario'),
+                                Message.getMensaje('cliente.label', 'Cliente'),
                                 usuarioInstance.id
                         ])
                 )
@@ -69,7 +69,7 @@ class ClienteController {
                 render(contentType: "application/json") {
                     success(
                             Message.getMensaje(codigo: 'default.updated.message', parametros: [
-                                    Message.getMensaje('usuario.label', 'Usuario'),
+                                    Message.getMensaje('cliente.label', 'Cliente'),
                                     usuarioInstance.id
                             ])
                     )

@@ -7,6 +7,8 @@ class Sesion {
 
     static hasMany = [transacciones:Transaccion]
 
+    Date fecha= new Date()
+
     Empleado empleado
 
     boolean activo = true
@@ -15,7 +17,9 @@ class Sesion {
 
     int numVentas=0
 
-    BigDecimal saldoFinal
+    int totalVentas=0
+
+    BigDecimal saldoFinal=saldoInicial
 
 
     static constraints = {
