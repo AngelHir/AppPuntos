@@ -4,6 +4,8 @@ class Cashback {
 
     static belongsTo = [transaccion:Transaccion]
 
+    Boolean activo= true
+
     Cliente cliente
 
     String tipo
