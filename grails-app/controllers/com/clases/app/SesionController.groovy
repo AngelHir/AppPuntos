@@ -1,16 +1,9 @@
 package com.clases.app
 
-import grails.validation.ValidationException
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
+import com.software.componente.app.ObjectException
+import com.software.componente.app.Message
+import grails.converters.JSON
 
-import grails.gorm.transactions.ReadOnly
-import grails.gorm.transactions.Transactional
-
-@ReadOnly
 class SesionController {
 
     SesionService sesionService
@@ -18,68 +11,45 @@ class SesionController {
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond sesionService.list(params), model:[sesionCount: sesionService.count()]
+    def save(){
+        log.info 'Plugin : appPuntos, Controlador : sesion, Accion : save'
+        try{Sesion sesionInstance=sesionService.create(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.created.message', parametros: [
+                                Message.getMensaje('sesion.label', 'Sesion'),
+                                sesionInstance.id
+                        ])
+                )
+            }
+
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") { mensajeError(e.getMessage()) }
+        }
     }
 
-    def show(Long id) {
-        respond sesionService.get(id)
-    }
 
-    @Transactional
-    def save(Sesion sesion) {
-        if (sesion == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (sesion.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond sesion.errors
-            return
-        }
-
+    def update() {
+        log.info 'Plugin : appPuntos, Controlador : sesion, Accion : update'
         try {
-            sesionService.save(sesion)
-        } catch (ValidationException e) {
-            respond sesion.errors
-            return
+            Sesion sesionInstance = sesionService.update(JSON.parse(request) as Map)
+            render(contentType: "application/json") {
+                success(
+                        Message.getMensaje(codigo: 'default.updated.message', parametros: [
+                                Message.getMensaje('sesion.label', 'Sesion'),
+                                sesionInstance.id
+                        ])
+                )
+            }
+        } catch (ObjectException e) {
+            render(status: 404, e.responseObject as JSON, contentType: "application/json")
+        } catch (Exception e) {
+            render(status: 404, contentType: "application/json") {
+                mensajeError(e.getMessage())
+            }
         }
-
-        respond sesion, [status: CREATED, view:"show"]
     }
 
-    @Transactional
-    def update(Sesion sesion) {
-        if (sesion == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (sesion.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond sesion.errors
-            return
-        }
-
-        try {
-            sesionService.save(sesion)
-        } catch (ValidationException e) {
-            respond sesion.errors
-            return
-        }
-
-        respond sesion, [status: OK, view:"show"]
-    }
-
-    @Transactional
-    def delete(Long id) {
-        if (id == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        sesionService.delete(id)
-
-        render status: NO_CONTENT
-    }
 }
