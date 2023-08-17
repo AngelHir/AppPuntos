@@ -31,23 +31,21 @@ class ClienteController {
             tipoMembresia(usuarioInstance.tipoMembresia)
         }
     }
-
    **/
 
-
     /**
-     * Controlador para la creacion de un nuevo Usuario
+     * Controlador para la creacion de un nuevo Cliente
      * @return Mapa con mensaje de exito de creacion
      * */
     def save() {
         log.info 'Plugin : AppPuntos, Controlador : cliente, Accion : save'
         try {
-            Cliente usuarioInstance = clienteService.create(JSON.parse(request) as Map)
+            Cliente clienteInstance = clienteService.create(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.created.message', parametros: [
                                 Message.getMensaje('cliente.label', 'Cliente'),
-                                usuarioInstance.id
+                                clienteInstance.id
                         ])
                 )
             }
@@ -59,18 +57,18 @@ class ClienteController {
     }
 
     /**
-     * Controlador para la actualizacion de usuarios existentes
+     * Controlador para la actualizacion de Clientes existentes
      * @return Mapa con mensaje de exito de actualizacion
      * */
         def update() {
-            log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : update'
+            log.info 'Plugin : appPuntos, Controlador : cliente, Accion : update'
             try {
-                Cliente usuarioInstance = clienteService.update(JSON.parse(request) as Map)
+                Cliente clienteInstance = clienteService.update(JSON.parse(request) as Map)
                 render(contentType: "application/json") {
                     success(
                             Message.getMensaje(codigo: 'default.updated.message', parametros: [
                                     Message.getMensaje('cliente.label', 'Cliente'),
-                                    usuarioInstance.id
+                                    clienteInstance.id
                             ])
                     )
                 }

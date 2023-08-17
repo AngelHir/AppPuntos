@@ -13,7 +13,6 @@ class Cashback {
     BigDecimal monto
 
 
-
     static constraints = {
         cliente nullable: false, blank: false
         puntosGenerados nullable:false, blank: false

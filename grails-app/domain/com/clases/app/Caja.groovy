@@ -11,8 +11,6 @@ class Caja {
     String nombre
 
 
-
-
     static constraints = {
         nombre nullable: false, blank: false
     }

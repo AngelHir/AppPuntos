@@ -10,9 +10,9 @@ class ClienteService {
     PersonaService personaService
 
     /**
-     * Busca y devuelve una instancia del Usuario mediante el id
-     * @param id Identificador del usuario
-     * @return Instancia del Usuario encontrada
+     * Busca y devuelve una instancia del Cliente mediante el id
+     * @param id Identificador del cliente
+     * @return Instancia del Cliente encontrada
      */
     Cliente get(long id) {
         log.info 'Plugin : AppPuntos, Servicio : cliente, Metodo : get'
@@ -20,86 +20,86 @@ class ClienteService {
     }
 
     /**
-     * Guarda en la base de datos los campos de un Usuario, nuevo o actualizado
-     * @param usuarioInstance Usuario a actualizar o crear
-     * @return Usuario actualizado o creado
+     * Guarda en la base de datos los campos de un Cliente, nuevo o actualizado
+     * @param clienteInstance Cliente a actualizar o crear
+     * @return Cliente actualizado o creado
      * @throws ObjectException Al encontrar algun error en los campos*/
-    Cliente save(Cliente usuarioInstance) throws Exception {
-        log.info 'Plugin : AppPuntos, Servicio : usuario, Metodo : save'
+    Cliente save(Cliente clienteInstance) throws Exception {
+        log.info 'Plugin : AppPuntos, Servicio : cliente, Metodo : save'
         try {
-            if (usuarioInstance.validate() && usuarioInstance.save()) {
-                log.info 'Plugin : AppPuntos, Servicio : usuario, Metodo : save, Completado'
-                return usuarioInstance
+            if (clienteInstance.validate() && clienteInstance.save()) {
+                log.info 'Plugin : AppPuntos, Servicio : cliente, Metodo : save, Completado'
+                return clienteInstance
             }
-            log.error 'Plugin : AppPuntos,  Servicio : usuario, Metodo : save, Error en Guardado'
+            log.error 'Plugin : AppPuntos,  Servicio : cliente, Metodo : save, Error en Guardado'
             throw new ObjectException(Message.getMensaje(codigo: 'save.fail', parametros: [
-                    Message.getMensaje('usuario.label', 'usuario')
-            ]), usuarioInstance)
+                    Message.getMensaje('cliente.label', 'Cliente')
+            ]), clienteInstance)
         }
         catch (org.springframework.dao.OptimisticLockingFailureException e) {
             throw new ObjectException(
                     Message.getMensaje([
                             codigo    : "default.optimistic.locking.failure",
-                            parametros: [Message.getMensaje('usuario.label', 'usuario')]
+                            parametros: [Message.getMensaje('cliente.label', 'Cliente')]
                     ]),
-                    usuarioInstance, true
+                    clienteInstance, true
             )
         }
     }
 
     /**
-     * Creacion de un nuevo Usuario
-     * @param usuarioMap Datos necesarios para la creacion del nuevo Usuario
-     * @return Instancia del Usuario creado
+     * Creacion de un nuevo Cliente
+     * @param clienteMap Datos necesarios para la creacion del nuevo Cliente
+     * @return Instancia del Cliente creado
      **/
-    Cliente create(Map usuarioMap) throws Exception {
-        log.info 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create Iniciando'
+    Cliente create(Map clienteMap) throws Exception {
+        log.info 'Plugin : facturacionNomina, Servicio :cliente, Metodo : create Iniciando'
         try {
-            Cliente usuarioInstance = new Cliente()
-            usuarioInstance.persona= personaService.create(usuarioMap)
-            usuarioInstance.numTarjeta = usuarioMap.numTarjeta
-            usuarioInstance.tipoMembresia = usuarioMap.tipoMembresia
+            Cliente clienteInstance = new Cliente()
+            clienteInstance.persona= personaService.create(clienteMap)
+            clienteInstance.numTarjeta = clienteMap.numTarjeta
+            clienteInstance.tipoMembresia = clienteMap.tipoMembresia
 
-            if (usuarioMap.inactivo) {
-                usuarioInstance.activo = false
+            if (clienteMap.inactivo) {
+                clienteInstance.activo = false
             }
 
-            this.save(usuarioInstance)
-            log.info 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create Completado'
-            return usuarioInstance
+            this.save(clienteInstance)
+            log.info 'Plugin : facturacionNomina, Servicio : cliente, Metodo : create Completado'
+            return clienteInstance
         }
         catch (Exception e) {
-            log.error 'Plugin : facturacionNomina, Servicio : usuario, Metodo : create, Error'
+            log.error 'Plugin : facturacionNomina, Servicio : cliente, Metodo : create, Error'
             throw e
         }
     }
 
 
     /**
-     * Actualizacion de un Banco existente
-     * @param usuarioMap Datos necesarios para la actualizacion del Usuario
-     * @return Instancia del Usuario actualizado
-     * @throws RuntimeException Al no encontrar el Usuario para actualizar
+     * Actualizacion de un Cliente existente
+     * @param clienteMap Datos necesarios para la actualizacion del Cliente
+     * @return Instancia del Cliente actualizado
+     * @throws RuntimeException Al no encontrar el Cliente para actualizar
      **/
-    Cliente update(Map usuarioMap) throws Exception {
-        log.info 'Plugin : appPuntos, Servicio : usuario, Metodo : update Iniciando'
+    Cliente update(Map clienteMap) throws Exception {
+        log.info 'Plugin : appPuntos, Servicio : cliente, Metodo : update Iniciando'
         try {
-            Cliente usuarioInstance = this.get(usuarioMap.id as long)
-            if (!usuarioInstance) {
-                log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error No Encontrado'
+            Cliente clienteInstance = this.get(clienteMap.id as long)
+            if (!clienteInstance) {
+                log.error 'Plugin : appPuntos, Servicio : cliente, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('usuario.label', 'Usuario'), usuarioInstance.id
+                        Message.getMensaje('cliente.label', 'Cliente'), clienteInstance.id
                 ]))
             }
-            usuarioInstance.persona= personaService.update(usuarioMap)
-            usuarioInstance.numTarjeta = usuarioMap.nombre
-            usuarioInstance.tipoMembresia = usuarioMap.direccion
+            clienteInstance.persona= personaService.update(clienteMap)
+            clienteInstance.numTarjeta = clienteMap.nombre
+            clienteInstance.tipoMembresia = clienteMap.direccion
 
-            this.save(usuarioInstance)
-            log.info 'Plugin : appPuntos, Servicio : Usuario, Metodo : update Completado'
-            return usuarioInstance
+            this.save(clienteInstance)
+            log.info 'Plugin : appPuntos, Servicio : cliente, Metodo : update Completado'
+            return clienteInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : Usuario, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : cliente, Metodo : update, Error'
             throw e
         }
     }
