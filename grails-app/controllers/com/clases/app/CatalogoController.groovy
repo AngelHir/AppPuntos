@@ -4,24 +4,26 @@ import com.software.componente.app.ObjectException
 import com.software.componente.app.Message
 import grails.converters.JSON
 
-class CatalogoGeneralController {
+class CatalogoController {
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    CatalogoService catalogoService
+
     /**
-     * Controlador para la creacion de un nuevo Usuario
+     * Controlador para la creacion de un nuevo Producto
      * @return Mapa con mensaje de exito de creacion
      * */
     def save() {
-        log.info 'Plugin : AppPuntos, Controlador : Usuario, Accion : save'
+        log.info 'Plugin : AppPuntos, Controlador : catalogo, Accion : save'
         try {
-            Cliente usuarioInstance = clienteService.create(JSON.parse(request) as Map)
+            Catalogo catalogoInstance = catalogoService.create(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.created.message', parametros: [
-                                Message.getMensaje('usuario.label', 'Usuario'),
-                                usuarioInstance.id
+                                Message.getMensaje('catalogo.label', 'Catalogo'),
+                                catalogoInstance.id
                         ])
                 )
             }
@@ -33,18 +35,18 @@ class CatalogoGeneralController {
     }
 
     /**
-     * Controlador para la actualizacion de usuarios existentes
+     * Controlador para la actualizacion de Catalogos existentes
      * @return Mapa con mensaje de exito de actualizacion
      * */
     def update() {
-        log.info 'Plugin : appPuntos, Controlador : Usuario, Accion : update'
+        log.info 'Plugin : appPuntos, Controlador : catalogo, Accion : update'
         try {
-            Cliente usuarioInstance = clienteService.update(JSON.parse(request) as Map)
+            Catalogo catalogoInstance = catalogoService.update(JSON.parse(request) as Map)
             render(contentType: "application/json") {
                 success(
                         Message.getMensaje(codigo: 'default.updated.message', parametros: [
-                                Message.getMensaje('usuario.label', 'Usuario'),
-                                usuarioInstance.id
+                                Message.getMensaje('catalogo.label', 'Catalogo'),
+                                catalogoInstance.id
                         ])
                 )
             }

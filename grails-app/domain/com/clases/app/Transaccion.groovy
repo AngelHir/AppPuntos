@@ -2,7 +2,7 @@ package com.clases.app
 
 class Transaccion {
 
-    static hasMany = [productos: CatalogoGeneral]
+    static hasMany = [productos: Catalogo]
     static hasOne = [cashback:Cashback]
     static belongsTo = [sesion:Sesion]
 

@@ -1,6 +1,6 @@
 package com.clases.app
 
-class CatalogoGeneral {
+class Catalogo {
 
     Boolean activo=true
     String nombre
