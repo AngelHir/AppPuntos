@@ -51,51 +51,52 @@ class CashbackService {
      * @param cashbackMap Datos necesarios para la creacion del nuevo Cashback
      * @return Instancia del Cashback creado
      **/
-    Cashback create(Map cashbackMap) throws Exception {
+    Cashback
+    create(Map cashbackMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : cashback, Metodo : create Iniciando'
         try {
             Cashback cashbackInstance = new Cashback()
 
 
-            if (cajaMap.inactivo) {
-                cajaInstance.activo = false
+            if (cashbackMap.inactivo) {
+                cashbackInstance.activo = false
             }
 
-            this.save(cajaInstance)
-            log.info 'Plugin : facturacionNomina, Servicio : caja, Metodo : create Completado'
-            return cajaInstance
+            this.save(cashbackInstance)
+            log.info 'Plugin : facturacionNomina, Servicio : cashback, Metodo : create Completado'
+            return cashbackInstance
         }
         catch (Exception e) {
-            log.error 'Plugin : facturacionNomina, Servicio : caja, Metodo : create, Error'
+            log.error 'Plugin : facturacionNomina, Servicio : cashback, Metodo : create, Error'
             throw e
         }
     }
 
-
     /**
-     * Actualizacion de una Caja existente
-     * @param cajaMap Datos necesarios para la actualizacion de la Caja
-     * @return Instancia de la Caja actualizado
-     * @throws RuntimeException Al no encontrar la Caja para actualizar
+     * Actualizacion de una Cashback existente
+     * @param cashbackMap Datos necesarios para la actualizacion del Cashback
+     * @return Instancia del Cashback actualizado
+     * @throws RuntimeException Al no encontrar el Cashback para actualizar
      **/
-    Caja update(Map cajaMap) throws Exception {
-        log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Iniciando'
+    Cashback update(Map cashbackMap) throws Exception {
+        log.info 'Plugin : appPuntos, Servicio : cashback, Metodo : update Iniciando'
         try {
-            Caja cajaInstance = this.get(cajaMap.id as long)
-            if (!cajaInstance) {
-                log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error No Encontrado'
+            Cashback cashbackInstance = this.get(cashbackMap.id as long)
+            if (!cashbackInstance) {
+                log.error 'Plugin : appPuntos, Servicio : cashback, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
-                        Message.getMensaje('caja.label', 'Caja'), cajaInstance.id
+                        Message.getMensaje('cashback.label', 'Cashback'), cashbackInstance.id
                 ]))
             }
-            cajaInstance.nombre = cajaMap.nombre
-            cajaInstance.sucursal= cajaMap.sucursal as Sucursal
+            cashbackInstance.cliente = cashbackMap.cliente as Cliente
+            cashbackInstance.tipo= cashbackMap.tipo
 
-            this.save(cajaInstance)
-            log.info 'Plugin : appPuntos, Servicio : caja, Metodo : update Completado'
-            return cajaInstance
+
+            this.save(cashbackInstance)
+            log.info 'Plugin : appPuntos, Servicio : cashback, Metodo : update Completado'
+            return cashbackInstance
         } catch (Exception e) {
-            log.error 'Plugin : appPuntos, Servicio : caja, Metodo : update, Error'
+            log.error 'Plugin : appPuntos, Servicio : cashback, Metodo : update, Error'
             throw e
         }
     }

@@ -7,6 +7,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class TransaccionService {
 
+    CashbackService cashbackService
+
     /**
      * Busca y devuelve una instancia de la Transaccion mediante el id
      * @param id Identificador de la Transaccion
@@ -55,6 +57,7 @@ class TransaccionService {
         log.info 'Plugin : facturacionNomina, Servicio : Transaccion, Metodo : create Iniciando'
         try {
             Transaccion  transaccionInstance = new Transaccion()
+            transaccionInstance.cashback=cashbackService.create(transaccionMap)
             transaccionInstance.cliente = transaccionMap.usuario as Cliente
             transaccionInstance.sucursal = transaccionMap.sucursal as Sucursal
             transaccionInstance.tipo = transaccionMap.tipo
