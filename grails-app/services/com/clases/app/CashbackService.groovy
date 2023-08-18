@@ -56,6 +56,10 @@ class CashbackService {
         log.info 'Plugin : facturacionNomina, Servicio : cashback, Metodo : create Iniciando'
         try {
             Cashback cashbackInstance = new Cashback()
+            cashbackInstance.cliente= cashbackMap.cliente as Cliente
+            cashbackInstance.tipo= cashbackMap.tipo
+            cashbackInstance.monto= cashbackMap.monto as BigDecimal
+            cashbackInstance.puntosGenerados= cashbackMap.puntosGenerados as int
 
 
             if (cashbackMap.inactivo) {
