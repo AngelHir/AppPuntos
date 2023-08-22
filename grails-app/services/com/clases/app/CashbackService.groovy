@@ -51,8 +51,7 @@ class CashbackService {
      * @param cashbackMap Datos necesarios para la creacion del nuevo Cashback
      * @return Instancia del Cashback creado
      **/
-    Cashback
-    create(Map cashbackMap) throws Exception {
+    Cashback create(Map cashbackMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : cashback, Metodo : create Iniciando'
         try {
             Cashback cashbackInstance = new Cashback()

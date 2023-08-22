@@ -23,11 +23,12 @@ class Sesion {
 
 
     static constraints = {
-
+        fecha nullable: false, blank: false
         empleado nullable: false, blank:false
-        numVentas blank:false
+        numVentas nullanle: false, blank:false
         saldoInicial nullable:false, blank:false
         saldoFinal nullable: false, blank:false
+        totalVentas nullable: false, blank: false
     }
 
     static mapping = {

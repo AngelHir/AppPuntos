@@ -5,16 +5,16 @@ import com.software.componente.app.ObjectException
 import grails.gorm.transactions.Transactional
 
 @Transactional
-class CatalogoService {
+class ProductoService {
 
     /**
      * Busca y devuelve una instancia de un Producto mediante el id
      * @param id Identificador del Producto
      * @return Instancia del Producto encontrada
      */
-    Catalogo get(long id) {
+    Producto get(long id) {
         log.info 'Plugin : AppPuntos, Servicio : catalogo, Metodo : get'
-        return Catalogo.get(id)
+        return Producto.get(id)
     }
 
     /**
@@ -22,7 +22,7 @@ class CatalogoService {
      * @param catalogoInstance Producto a actualizar o crear
      * @return Producto actualizado o creado
      * @throws com.software.componente.app.ObjectException Al encontrar algun error en los campos*/
-    Catalogo save(Catalogo catalogoInstance) throws Exception {
+    Producto save(Producto catalogoInstance) throws Exception {
         log.info 'Plugin : AppPuntos, Servicio : catalogo, Metodo : save'
         try {
             if (catalogoInstance.validate() && catalogoInstance.save()) {
@@ -50,10 +50,10 @@ class CatalogoService {
      * @param productoMap Datos necesarios para la creacion de la nuevo Producto
      * @return Instancia del Producto creado
      **/
-    Catalogo create(Map catalogoMap) throws Exception {
+    Producto create(Map catalogoMap) throws Exception {
         log.info 'Plugin : facturacionNomina, Servicio : catalogo, Metodo : create Iniciando'
         try {
-            Catalogo catalogoInstance = new Catalogo()
+            Producto catalogoInstance = new Producto()
             catalogoInstance.nombre = catalogoMap.nombre
             catalogoInstance.codigo= catalogoMap.codigo
             catalogoInstance.clasificacion= catalogoMap.clasificacion
@@ -83,10 +83,10 @@ class CatalogoService {
      * @return Instancia del Producto actualizado
      * @throws RuntimeException Al no encontrar el Producto para actualizar
      **/
-    Catalogo update(Map catalogoMap) throws Exception {
+    Producto update(Map catalogoMap) throws Exception {
         log.info 'Plugin : appPuntos, Servicio : catalogo, Metodo : update Iniciando'
         try {
-            Catalogo catalogoInstance = this.get(catalogoMap.id as long)
+            Producto catalogoInstance = this.get(catalogoMap.id as long)
             if (!catalogoInstance) {
                 log.error 'Plugin : appPuntos, Servicio : catalogo, Metodo : update, Error No Encontrado'
                 throw new RuntimeException(Message.getMensaje(codigo: 'default.not.found.message', parametros: [
